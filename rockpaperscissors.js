@@ -2,29 +2,40 @@ let userscore=0;
 let Compscore=0;
 const choices= document.querySelectorAll(".choice");
 const result= document.querySelector("#msg");
+const UserDisplayScore=document.querySelector('#user-score');
+const CompDisplayScore=document.querySelector('#comp-score');
+
 
 const getComputerchoice=()=>{
 const options=["rock","paper","scissor"];
     const idx= Math.floor(Math.random()*3);
     return(options[idx]);
 }
-const showWinner=(userWin)=>{
+const showWinner=(userWin,userchoice,computerchoice)=>{
   console.log(userWin);
 if(userWin==true)
 {
-  result.innerText="You Win!!"
+  result.innerText=`your ${userchoice} wins from ${computerchoice}!!`;
+ result.style.backgroundColor="green";
+ userscore++;
+ UserDisplayScore.innerText=userscore;
 }
 else{
-  result.innerText="You loose!!"
+  result.innerText=`your ${userchoice} defeats from ${computerchoice}!!`;
+   result.style.backgroundColor="red";
+   Compscore++;
+ 
+ CompDisplayScore.innerText=Compscore
 }
 
 }
 const DrawGame=()=>{
-result.innerText=" Game Draw,Try Again.";
+result.innerText="Game Draw,Try Again.";
+result.style.backgroundColor="black";
 }
  const PlayGame=(userchoice)=>{
     
-    const computerchoice=getComputerchoice();
+    computerchoice=getComputerchoice();
     console.log("Computer choose=",computerchoice);
     if(userchoice===computerchoice){
       DrawGame();
@@ -44,7 +55,7 @@ result.innerText=" Game Draw,Try Again.";
           //computer choices left:,paper,rock
           userWin=computerchoice==="rock"?false:true;
         }
-      showWinner(userWin)
+      showWinner(userWin,userchoice,computerchoice)
       
     }
  }
